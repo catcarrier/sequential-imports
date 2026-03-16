@@ -25,8 +25,8 @@ function queueIncidentImport() {
     // The data source we will move the attachment to before import
     const to_data_source_sys_id = getSysId(
         gs.getCurrentApplicationId(),
-        "scheduled_import_set",
-        "Incident Import");
+        "sys_data_source",
+        "Incident Data");
 
     var inputs = {};
     inputs['scheduled_import_set_sys_id'] = scheduled_import_set_sys_id;
@@ -58,7 +58,7 @@ function getSysId(app_id, tableName, name) {
         <sys_domain>global</sys_domain>
         <sys_domain_path>/</sys_domain_path>
         <sys_id>4a2228afc36ff210c134bf12b4013197</sys_id>
-        <sys_mod_count>2</sys_mod_count>
+        <sys_mod_count>3</sys_mod_count>
         <sys_name>Queue Up Incident Import</sys_name>
         <sys_overrides/>
         <sys_package display_value="Sequential Imports" source="x_42999_sequenti_0">c729d0ebc32ff210c134bf12b4013100</sys_package>
@@ -66,6 +66,6 @@ function getSysId(app_id, tableName, name) {
         <sys_scope display_value="Sequential Imports">c729d0ebc32ff210c134bf12b4013100</sys_scope>
         <sys_update_name>sysevent_script_action_4a2228afc36ff210c134bf12b4013197</sys_update_name>
         <sys_updated_by>admin</sys_updated_by>
-        <sys_updated_on>2026-03-16 19:56:43</sys_updated_on>
+        <sys_updated_on>2026-03-16 21:37:45</sys_updated_on>
     </sysevent_script_action>
 </record_update>
