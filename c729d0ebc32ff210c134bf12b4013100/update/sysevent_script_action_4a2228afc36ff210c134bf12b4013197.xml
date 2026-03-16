@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update sys_domain="global" table="sysevent_script_action">
+    <sysevent_script_action action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <condition_script/>
+        <description/>
+        <event_name>x_42999_sequenti_0.inc_data_received</event_name>
+        <name>Queue Up Incident Import</name>
+        <order>100</order>
+        <script><![CDATA[queueIncidentImport();
+
+function queueIncidentImport() {
+
+    // The job we will run, via subflow
+    const scheduled_import_set_sys_id = getSysId(
+        gs.getCurrentApplicationId(),
+        "scheduled_import_set",
+        "Incident Import");
+
+    // The data source holding the attachment we will import
+    const from_data_source_sys_id = getSysId(
+        gs.getCurrentApplicationId(),
+        "sys_data_source",
+        "Incident Data Queue");
+
+    // The data source we will move the attachment to before import
+    const to_data_source_sys_id = getSysId(
+        gs.getCurrentApplicationId(),
+        "scheduled_import_set",
+        "Incident Import");
+
+    var inputs = {};
+    inputs['scheduled_import_set_sys_id'] = scheduled_import_set_sys_id;
+    inputs['from_data_source_sys_id'] = from_data_source_sys_id;
+    inputs['to_data_source_sys_id'] = to_data_source_sys_id;
+
+    sn_fd.FlowAPI
+        .getRunner()
+        .subflow('x_42999_sequenti_0.queue_up_incident_import')
+        .inBackground()
+        .withInputs(inputs)
+        .run();
+}
+
+function getSysId(app_id, tableName, name) {
+    var result = null;
+    var gr = new GlideRecord(tableName);
+    gr.addQuery("sys_scope", app_id);
+    gr.addQuery("name", name);
+    gr.setLimit(1);
+    gr.query();
+    if (gr.next()) result = gr.getValue("sys_id");
+    return result;
+}]]></script>
+        <synchronous>false</synchronous>
+        <sys_class_name>sysevent_script_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-03-16 16:13:05</sys_created_on>
+        <sys_domain>global</sys_domain>
+        <sys_domain_path>/</sys_domain_path>
+        <sys_id>4a2228afc36ff210c134bf12b4013197</sys_id>
+        <sys_mod_count>2</sys_mod_count>
+        <sys_name>Queue Up Incident Import</sys_name>
+        <sys_overrides/>
+        <sys_package display_value="Sequential Imports" source="x_42999_sequenti_0">c729d0ebc32ff210c134bf12b4013100</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="Sequential Imports">c729d0ebc32ff210c134bf12b4013100</sys_scope>
+        <sys_update_name>sysevent_script_action_4a2228afc36ff210c134bf12b4013197</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-03-16 19:56:43</sys_updated_on>
+    </sysevent_script_action>
+</record_update>
