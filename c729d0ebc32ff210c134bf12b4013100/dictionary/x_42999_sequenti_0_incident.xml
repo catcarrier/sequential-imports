@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><database>
+    <element db_object_id="1cac50a3c36ff210c134bf12b401310d" extends="sys_import_set_row" label="incident" max_length="40" name="x_42999_sequenti_0_incident" type="collection">
+        <element label="Incident Short Description" max_length="160" name="u_short_description" type="string"/>
+        <element label="Incident Number" max_length="40" name="u_number" type="string"/>
+    </element>
+</database>
